@@ -20,9 +20,6 @@ import {
   Settings
 } from 'lucide-react';
 
-// --- Types ---
-type GameType = 'snake' | 'memory' | 'clicker' | 'none';
-
 // --- Snake Game Component ---
 const SnakeGame = () => {
   const [snake, setSnake] = useState([{ x: 10, y: 10 }]);
@@ -70,7 +67,7 @@ const SnakeGame = () => {
   }, [moveSnake]);
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e) => {
       switch (e.key) {
         case 'ArrowUp': if (direction.y === 0) setDirection({ x: 0, y: -1 }); break;
         case 'ArrowDown': if (direction.y === 0) setDirection({ x: 0, y: 1 }); break;
@@ -248,13 +245,13 @@ const ClickerGame = () => {
 
 // --- Main App Component ---
 export default function App() {
-  const [currentGame, setCurrentGame] = useState<GameType>('none');
+  const [currentGame, setCurrentGame] = useState('none');
   const [isPanic, setIsPanic] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   // Panic Button Handler (Esc key)
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    const handleKeyDown = (e) => {
       if (e.key === 'Escape') {
         setIsPanic(true);
         setCurrentGame('none');
@@ -425,7 +422,7 @@ export default function App() {
                       <motion.button
                         key={game.id}
                         whileHover={{ y: -8 }}
-                        onClick={() => setCurrentGame(game.id as GameType)}
+                        onClick={() => setCurrentGame(game.id)}
                         className="group bg-zinc-900/50 p-6 rounded-[2.5rem] border border-zinc-800 hover:border-indigo-500/50 transition-all text-left relative overflow-hidden"
                       >
                         <div className={`absolute -right-8 -bottom-8 opacity-5 group-hover:opacity-20 transition-all duration-500 group-hover:scale-110 text-${game.color}-500`}>
